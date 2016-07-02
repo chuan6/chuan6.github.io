@@ -5,8 +5,9 @@
             [hiccup.page :refer :all])
   (:gen-class))
 
-(def sample-text
-  "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。")
+(def sample
+  {:title "Tiger语言的编译器前端"
+   :content "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"})
 
 (defn- wrap-span [options s]
   (html [:span options s]))
@@ -64,7 +65,6 @@
            [:div
             [:div
              [:a {:href "https://github.com/chuan6/tiger-compiler"}
-              [:span {:lang "en"} "Tiger"]
-              "语言的编译器前端"]]
+              (tag-english-content (:title sample))]]
             [:div
-             [:span (tag-english-content sample-text)]]]]))))
+             [:span (tag-english-content (:content sample))]]]]))))
