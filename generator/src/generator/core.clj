@@ -11,7 +11,10 @@
     :content "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"}
    {:title "把玩浏览历史的Chrome插件：webXi"
     :link "https://github.com/chuan6/webXi"
-    :content "制作了一个Chrome浏览器插件，webXi。可以帮助Chrome重度用户通过动态的操作流程，把玩、分析自己的网页浏览历史。"}])
+    :content "制作了一个Chrome浏览器插件，webXi。可以帮助Chrome重度用户通过动态的操作流程，把玩、分析自己的网页浏览历史。"}
+   {:title "M/M/c/K队列系统模拟库"
+    :link "https://github.com/chuan6/mmck-simul-lib"
+    :content "设计并实现了M/M/c/K队列系统模拟器函数库。主要特点有，可以灵活模拟非简单FIFO的队列、非简单先空闲先上岗的服务单元，以及处理任务速率不同的服务单元；用户只需提供满足简单接口的队列结构或服务单元结构，便能利用库里的模拟算法；分别用Go语言和C++11语言实现了两个符合各自语言特点的版本；Go语言版本通过pprof进行性能调优，将随机数生成之外的计算成本降到极低，测试中达到与C++11版本通过gcc -o2优化编译所得到的性能。"}])
 
 (defn- wrap-span [options s]
   (html [:span options s]))
@@ -32,7 +35,11 @@
                (t/is (= (str "你好" hello "世界" world)
                         (tag-english-content "你好hello世界world")))]))}
   [input-string]
-  (letfn [(tag [cs] (wrap-span {:lang "en"} (str/join cs)))]
+  (let [en-neighbors?
+        (set (seq "0123456789+-/"))
+
+        tag
+        (fn [cs] (wrap-span {:lang "en"} (str/join cs)))]
     (loop [cs input-string
            tv []
            en-buf []]
@@ -45,7 +52,8 @@
               i (int c)]
           (cond (or (and (>= i (int \a)) (<= i (int \z)))
                     (and (>= i (int \A)) (<= i (int \Z)))
-                    (and (seq en-buf) (Character/isWhitespace c)))
+                    (and (seq en-buf) (or (Character/isWhitespace c)
+                                          (en-neighbors? c))))
                 (recur (rest cs) tv (conj en-buf c))
 
                 (seq en-buf)
@@ -74,4 +82,4 @@
               [:div
                [:span (tag-english-content (:content entry))]]])]))))
 
-;;(-main)
+(-main)
