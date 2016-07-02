@@ -5,9 +5,13 @@
             [hiccup.page :refer :all])
   (:gen-class))
 
-(def sample
-  {:title "Tiger语言的编译器前端"
-   :content "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"})
+(def samples
+  [{:title "Tiger语言的编译器前端"
+    :link "https://github.com/chuan6/tiger-compiler"
+    :content "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"}
+   {:title "把玩浏览历史的Chrome插件：webXi"
+    :link "https://github.com/chuan6/webXi"
+    :content "制作了一个Chrome浏览器插件，webXi。可以帮助Chrome重度用户通过动态的操作流程，把玩、分析自己的网页浏览历史。"}])
 
 (defn- wrap-span [options s]
   (html [:span options s]))
@@ -62,9 +66,12 @@
            [:link {:rel "icon" :href "favicon.png"}]
            [:link {:rel "stylesheet" :href "index.css"}]]
           [:body
-           [:div
-            [:div
-             [:a {:href "https://github.com/chuan6/tiger-compiler"}
-              (tag-english-content (:title sample))]]
-            [:div
-             [:span (tag-english-content (:content sample))]]]]))))
+           (for [entry samples]
+             [:div
+              [:div
+               [:a {:href (:link entry)}
+                (tag-english-content (:title entry))]]
+              [:div
+               [:span (tag-english-content (:content entry))]]])]))))
+
+;;(-main)
