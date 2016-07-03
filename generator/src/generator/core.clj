@@ -14,7 +14,10 @@
     :content "制作了一个Chrome浏览器插件，webXi。可以帮助Chrome重度用户通过动态的操作流程，把玩、分析自己的网页浏览历史。"}
    {:title "M/M/c/K队列系统模拟库"
     :link "https://github.com/chuan6/mmck-simul-lib"
-    :content "设计并实现了M/M/c/K队列系统模拟器函数库。主要特点有，可以灵活模拟非简单FIFO的队列、非简单先空闲先上岗的服务单元，以及处理任务速率不同的服务单元；用户只需提供满足简单接口的队列结构或服务单元结构，便能利用库里的模拟算法；分别用Go语言和C++11语言实现了两个符合各自语言特点的版本；Go语言版本通过pprof进行性能调优，将随机数生成之外的计算成本降到极低，测试中达到与C++11版本通过gcc -o2优化编译所得到的性能。"}])
+    :content "设计并实现了M/M/c/K队列系统模拟器函数库。主要特点有，可以灵活模拟非简单FIFO的队列、非简单先空闲先上岗的服务单元，以及处理任务速率不同的服务单元；用户只需提供满足简单接口的队列结构或服务单元结构，便能利用库里的模拟算法；分别用Go语言和C++11语言实现了两个符合各自语言特点的版本；Go语言版本通过pprof进行性能调优，将随机数生成之外的计算成本降到极低，测试中达到与C++11版本通过gcc -o2优化编译所得到的性能。"}
+   {:title "LC-3的单文件汇编器"
+    :link "https://github.com/chuan6/LC-3-assembler"
+    :content "实现了LC-3汇编语言的单文件汇编器。主要特点有，为了适用于教育环境，提供充分的报错信息；使用Clojure语言。"}])
 
 (defn- wrap-span [options s]
   (html [:span options s]))
@@ -28,6 +31,10 @@
                         (tag-english-content "")))
                (t/is (= hello
                         (tag-english-content "hello")))
+               (t/is (= (wrap-span {:lang "en"} "C++")
+                        (tag-english-content "C++")))
+               (t/is (= (wrap-span {:lang "en"} "1+x")
+                        (tag-english-content "1+x")))
                (t/is (= (str hello "世界")
                         (tag-english-content "hello世界")))
                (t/is (= (str "你好" hello "世界")
@@ -35,11 +42,7 @@
                (t/is (= (str "你好" hello "世界" world)
                         (tag-english-content "你好hello世界world")))]))}
   [input-string]
-  (let [en-neighbors?
-        (set (seq "0123456789+-/"))
-
-        tag
-        (fn [cs] (wrap-span {:lang "en"} (str/join cs)))]
+  (letfn [(tag [cs] (wrap-span {:lang "en"} (str/join cs)))]
     (loop [cs input-string
            tv []
            en-buf []]
@@ -50,10 +53,8 @@
            (conj tv (tag en-buf))))
         (let [c (first cs)
               i (int c)]
-          (cond (or (and (>= i (int \a)) (<= i (int \z)))
-                    (and (>= i (int \A)) (<= i (int \Z)))
-                    (and (seq en-buf) (or (Character/isWhitespace c)
-                                          (en-neighbors? c))))
+          (cond (or (and (>= i (int \!)) (<= i (int \~)))
+                    (and (seq en-buf) (Character/isWhitespace c)))
                 (recur (rest cs) tv (conj en-buf c))
 
                 (seq en-buf)
