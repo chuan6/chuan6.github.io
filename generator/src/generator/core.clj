@@ -17,7 +17,10 @@
     :content "设计并实现了M/M/c/K队列系统模拟器函数库。主要特点有，可以灵活模拟非简单FIFO的队列、非简单先空闲先上岗的服务单元，以及处理任务速率不同的服务单元；用户只需提供满足简单接口的队列结构或服务单元结构，便能利用库里的模拟算法；分别用Go语言和C++11语言实现了两个符合各自语言特点的版本；Go语言版本通过pprof进行性能调优，将随机数生成之外的计算成本降到极低，测试中达到与C++11版本通过gcc -o2优化编译所得到的性能。"}
    {:title "LC-3的单文件汇编器"
     :link "https://github.com/chuan6/LC-3-assembler"
-    :content "实现了LC-3汇编语言的单文件汇编器。主要特点有，为了适用于教育环境，提供充分的报错信息；使用Clojure语言。"}])
+    :content "实现了LC-3汇编语言的单文件汇编器。主要特点有，为了适用于教育环境，提供充分的报错信息；使用Clojure语言。"}
+   {:title "一个基于Linux系统的简单shell"
+    :link "https://github.com/chuan6/toyshell"
+    :content "实现了多管道式命令，输入输出重定向，以及aliasing（命令别名定义机制）。"}])
 
 (defn- wrap-span [options s]
   (html [:span options s]))
