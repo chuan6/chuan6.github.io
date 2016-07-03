@@ -76,7 +76,7 @@
            [:link {:rel "stylesheet" :href "index.css"}]]
           [:body
            (for [entry samples]
-             [:div
+             [:div {:class "entry"}
               [:div
                [:a {:href (:link entry)}
                 (tag-english-content (:title entry))]]
