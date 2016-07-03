@@ -5,6 +5,11 @@ body
   width: 256px;
   float: left;
   padding: 0.5em 1.62em 0.5em 1em;
-  margin: 0.5 0.31em 0.5em 0.31em;
+  margin: 0.5em 0.31em 0.5em 0.31em;
   border-left: 2px solid red;
+  line-height: 1.62;
+}
+
+.title {
+  font-weight: bold;
 }

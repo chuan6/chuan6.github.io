@@ -77,10 +77,10 @@
           [:body
            (for [entry samples]
              [:div {:class "entry"}
-              [:div
+              [:div {:class "title"}
                [:a {:href (:link entry)}
                 (tag-english-content (:title entry))]]
               [:div
-               [:span (tag-english-content (:content entry))]]])]))))
+               [:p (tag-english-content (:content entry))]]])]))))
 
 (-main)
