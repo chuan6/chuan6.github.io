@@ -20,7 +20,11 @@
     :content "实现了LC-3汇编语言的单文件汇编器。主要特点有，为了适用于教育环境，提供充分的报错信息；使用Clojure语言。"}
    {:title "一个基于Linux系统的简单shell"
     :link "https://github.com/chuan6/toyshell"
-    :content "实现了多管道式命令，输入输出重定向，以及aliasing（命令别名定义机制）。"}])
+    :content "实现了多管道式命令，输入输出重定向，以及aliasing（命令别名定义机制）。"}
+   {:title "中农大五色土BBS注册页重构"
+    :link "https://github.com/chuan6/wusetu-bbs-regpage"
+    :content "重构的背景是在2009年左右，同学中越来越多的人开始使用Firefox和Chrome作为主力浏览器，代替IE6。 而原页面存在着的一些与HTML标准不太符合的实现，在当时刚开始学习网页技术的我看来，可以成为重构的对象。未上线。"
+    :more-links {"wusetu-bbs-regpage/reg.html" "页面展示"}}])
 
 (defn- wrap-span [options s]
   (html [:span options s]))
@@ -84,6 +88,11 @@
                [:a {:href (:link entry)}
                 (tag-english-content (:title entry))]]
               [:div
-               [:p (tag-english-content (:content entry))]]])]))))
+               [:p (tag-english-content (:content entry))]]
+              (when-let [links (:more-links entry)]
+                [:ul
+                 (for [[ref txt] links]
+                   [:li
+                    [:a {:href ref} txt]])])])]))))
 
 (-main)
