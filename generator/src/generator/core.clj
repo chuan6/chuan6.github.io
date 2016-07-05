@@ -24,7 +24,7 @@
    {:title "中农大五色土BBS注册页重构"
     :link "https://github.com/chuan6/wusetu-bbs-regpage"
     :content "重构的背景是在2009年左右，同学中越来越多的人开始使用Firefox和Chrome作为主力浏览器，代替IE6。 而原页面存在着的一些与HTML标准不太符合的实现，在当时刚开始学习网页技术的我看来，可以成为重构的对象。未上线。"
-    :more-links {"wusetu-bbs-regpage/reg.html" "页面展示"}}])
+    :more-links {"wusetu-bbs-regpage" "页面展示"}}])
 
 (defn- wrap-span [options s]
   (html [:span options s]))
