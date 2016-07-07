@@ -82,6 +82,7 @@
          (html5
           [:head {:lang "zh"}
            [:meta {:charset "utf-8"}]
+           [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
            [:title "chuan6"]
            [:link {:rel "icon" :href "favicon.png"}]
            [:link {:rel "stylesheet" :href "index.css"}]]
