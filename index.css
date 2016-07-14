@@ -1,9 +1,13 @@
 body
 :lang(en) {font-family: sans-serif;}
 
+body {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
 .entry {
   width: 256px;
-  float: left;
   padding: 0.5em 1.62em 0.5em 1em;
   margin: 0.5em 0.31em 0.5em 0.31em;
   border-left: 2px solid red;
