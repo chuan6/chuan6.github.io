@@ -1,5 +1,6 @@
 (ns generator.core
-  (:require [clojure.string :as str]
+  (:require [clojure.java.io :only [as-url]]
+            [clojure.string :as str]
             [clojure.test :as t]
             [hiccup.core :refer :all]
             [hiccup.page :refer :all])
@@ -74,6 +75,18 @@
                 :else
                 (recur (rest cs) (conj tv c) [])))))))
 
+(defn id-by-link
+  {:test
+   #(let [prefix (partial str "https://github.com/chuan6")]
+      (every? true?
+              [(t/is (= "" (id-by-link (prefix "/"))))
+               (t/is (= "" (id-by-link (prefix "/?query"))))
+               (t/is (= "webXi" (id-by-link (prefix "/webXi"))))]))}
+  [link-str]
+  (let [path (.getPath (as-url link-str))
+        delimit-at (.lastIndexOf path (int \/))]
+    (.substring path (inc delimit-at))))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
@@ -89,7 +102,8 @@
            [:script {:src "main.js"}]]
           [:body
            (for [{:keys [title link content more-links]} samples]
-             [:div {:class "entry"}
+             [:div {:id (id-by-link link)
+                    :class "entry"}
               [:div {:class "title"}
                [:a {:href link}
                 (tag-english-content title)]]
