@@ -36,16 +36,16 @@
 
 (defn tag-english-content
   {:test
-   #(let [hello (wrap-span {:lang "en"} "hello")
-          world (wrap-span {:lang "en"} "world")]
+   #(let [hello (wrap-span {:lang "en"} " hello ")
+          world (wrap-span {:lang "en"} " world ")]
       (every? true?
               [(t/is (= ""
                         (tag-english-content "")))
                (t/is (= hello
                         (tag-english-content "hello")))
-               (t/is (= (wrap-span {:lang "en"} "C++")
+               (t/is (= (wrap-span {:lang "en"} " C++ ")
                         (tag-english-content "C++")))
-               (t/is (= (wrap-span {:lang "en"} "1+x")
+               (t/is (= (wrap-span {:lang "en"} " 1+x ")
                         (tag-english-content "1+x")))
                (t/is (= (str hello "世界")
                         (tag-english-content "hello世界")))
@@ -54,7 +54,10 @@
                (t/is (= (str "你好" hello "世界" world)
                         (tag-english-content "你好hello世界world")))]))}
   [input-string]
-  (letfn [(tag [cs] (wrap-span {:lang "en"} (str/join cs)))]
+  (letfn [(space-before-after [cs]
+            (str " " (str/join cs) " "))
+          (tag [cs]
+            (wrap-span {:lang "en"} (space-before-after cs)))]
     (loop [cs input-string
            tv []
            en-buf []]
