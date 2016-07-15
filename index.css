@@ -2,7 +2,8 @@ body
 :lang(en) {font-family: sans-serif;}
 
 body {
-  max-width: 620px;
+  max-width: 930px;
+  min-width: 310px;
   margin: 0 auto;
 }
 
