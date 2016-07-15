@@ -88,14 +88,14 @@
            [:link {:rel "stylesheet" :href "index.css"}]
            [:script {:src "main.js"}]]
           [:body
-           (for [entry samples]
+           (for [{:keys [title link content more-links]} samples]
              [:div {:class "entry"}
               [:div {:class "title"}
-               [:a {:href (:link entry)}
-                (tag-english-content (:title entry))]]
+               [:a {:href link}
+                (tag-english-content title)]]
               [:div
-               [:p (tag-english-content (:content entry))]]
-              (when-let [links (:more-links entry)]
+               [:p (tag-english-content content)]]
+              (when-let [links more-links]
                 [:ul
                  (for [[ref txt] links]
                    [:li
