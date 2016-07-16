@@ -1,5 +1,5 @@
 (ns generator.core
-  (:require [clojure.java.io :only [as-url]]
+  (:require [clojure.java.io :refer [as-url]]
             [clojure.string :as str]
             [clojure.test :as t]
             [hiccup.core :refer :all]
@@ -104,18 +104,19 @@
            [:link {:rel "stylesheet" :href "index.css"}]
            [:script {:src "main.js"}]]
           [:body
-           (for [{:keys [title link content more-links]} samples]
-             [:div {:id (id-by-link link)
-                    :class "entry"}
-              [:div {:class "title"}
-               [:a {:href link}
-                (tag-english-content title)]]
-              [:div
-               [:p (tag-english-content content)]]
-              (when-let [links more-links]
-                [:ul
-                 (for [[ref txt] links]
-                   [:li
-                    [:a {:href ref} txt]])])])]))))
+           [:div {:id "entries-container"}
+            (for [{:keys [title link content more-links]} samples]
+              [:div {:id (id-by-link link)
+                     :class "entry"}
+               [:div {:class "title"}
+                [:a {:href link}
+                 (tag-english-content title)]]
+               [:div
+                [:p (tag-english-content content)]]
+               (when-let [links more-links]
+                 [:ul
+                  (for [[ref txt] links]
+                    [:li
+                     [:a {:href ref} txt]])])])]]))))
 
 (-main)

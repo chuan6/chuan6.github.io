@@ -46,13 +46,15 @@ function numOfCols(e, containerWidth) {
     return Math.floor(containerWidth / horizontalSpan(e));
 }
 
-// position entries es in n columns
-function dynamicPositioning(es, n) {
-    console.log("dynamicPositioning ", n);
+// position entries es in n columns, in the given container
+function dynamicPositioning(container, es, n) {
+    console.log("dynamicPositioning ", n, " columns");
     var i, e;
     var tops = [];
     var hspan = horizontalSpan(es[0]);
     var top, idx;
+
+    container.style.width = px(hspan * n);
 
     tops.length = n;
     for (i = 0; i < tops.length; i++) {
@@ -69,17 +71,18 @@ function dynamicPositioning(es, n) {
 }
 
 window.addEventListener("load", function () {
+    var container = document.getElementById("entries-container");
     var entries = document.getElementsByClassName("entry");
     var ncols;
 
     absolutePosition(entries);
     ncols = numOfCols(entries[0], document.body.offsetWidth);
-    dynamicPositioning(entries, ncols);
+    dynamicPositioning(container, entries, ncols);
 
     window.onresize = function () {
         var n = numOfCols(entries[0], document.body.offsetWidth);
         if (n !== ncols) {
-            dynamicPositioning(entries, n);
+            dynamicPositioning(container, entries, n);
             ncols = n;
         }
     };

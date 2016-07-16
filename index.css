@@ -7,6 +7,10 @@ body {
   margin: 0 auto;
 }
 
+#entries-container {
+  margin: 0 auto;
+}
+
 .entry {
   width: 240px;
   padding: 0.5em 1.62em 0.5em 1em;
