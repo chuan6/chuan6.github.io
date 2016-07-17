@@ -5,14 +5,20 @@ body {
   max-width: 900px;
   min-width: 300px;
   margin: 0 auto;
+  background-color: white;
 }
 
 #entries-container {
   margin: 0 auto;
+  background-color: inherit;
+}
+
+.entry, .title {
+  width: 240px;
+  background-color: inherit;
 }
 
 .entry {
-  width: 240px;
   padding: 0.5em 1.62em 0.5em 1em;
   margin: 0.5em 0.31em 0.5em 0.31em;
   border-left: 2px solid red;

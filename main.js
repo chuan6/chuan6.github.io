@@ -70,10 +70,44 @@ function dynamicPositioning(container, es, n) {
     }
 }
 
+function elmtYOffset(e) {
+    var x, r = 0;
+
+    for (x = e; x; x = x.offsetParent) {
+        //console.log("x.offsetTop: ", x.offsetTop);
+        r += x.offsetTop;
+        //console.log("r: ", r);
+    }
+    return r;
+}
+
+function entryTitleOnScroll(e) {
+    var title = e.querySelector(".title");
+    var fixed = title.cloneNode(true);
+
+    fixed.style.position = "fixed";
+    fixed.style.top = "0";
+
+    return function () {
+        var pageY = window.pageYOffset;
+        var elmtY = elmtYOffset(title);
+        var shouldBeFixed = pageY > elmtY && pageY < elmtY+e.offsetHeight;
+        var isFixed = !!fixed.parentNode;
+
+        if (isFixed !== shouldBeFixed) {
+            if (shouldBeFixed) {//fixed is undefined
+                fixed = e.insertBefore(fixed, title);
+            } else {
+                e.removeChild(fixed);
+            }
+        }
+    };
+}
+
 window.addEventListener("load", function () {
     var container = document.getElementById("entries-container");
     var entries = document.getElementsByClassName("entry");
-    var ncols;
+    var i, ncols;
 
     absolutePosition(entries);
     ncols = numOfCols(entries[0], document.body.offsetWidth);
@@ -86,4 +120,8 @@ window.addEventListener("load", function () {
             ncols = n;
         }
     };
+
+    for (i = 0; i < entries.length; i++) {
+        window.addEventListener("scroll", entryTitleOnScroll(entries[i]));
+    }
 });
