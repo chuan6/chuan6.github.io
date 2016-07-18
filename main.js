@@ -52,7 +52,7 @@ function dynamicPositioning(container, es, n) {
     var i, e;
     var tops = [];
     var hspan = horizontalSpan(es[0]);
-    var top, idx;
+    var top, idx, pair;
 
     container.style.width = px(hspan * n);
 
@@ -63,7 +63,9 @@ function dynamicPositioning(container, es, n) {
 
     for (i = 0; i < es.length; i++) {
         e = es[i];
-        [top, idx] = leftMostMin(tops);
+        pair = leftMostMin(tops);
+        top = pair[0];
+        idx = pair[1];
         e.style.top = px(top);
         e.style.left = px(hspan * idx);
         tops[idx] += verticalSpan(e);
