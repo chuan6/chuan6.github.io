@@ -40,7 +40,7 @@ function topValues(n) {
             }
         },
         increment: function (i, x) {
-            tv[i] += x;
+            if (i >= 0 && i < tv.length) tv[i] += x;
         },
         leftMostMin: function () {
             var min = [tv[0], 0];
