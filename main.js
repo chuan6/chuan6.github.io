@@ -1,7 +1,3 @@
-function makeParentPositionRelative(elmt) {
-    elmt.parentNode.style.position = "relative";
-}
-
 function horizontalSpan(elmt) {
     var computed = window.getComputedStyle(elmt);
     return parseFloat(computed.marginLeft)
@@ -22,8 +18,6 @@ function px(x) {
 
 function absolutePosition(es) {
     var i;
-
-    makeParentPositionRelative(es[0]);
 
     for (i = 0; i < es.length; i++) {
         es[i].style.position = "absolute";
@@ -111,7 +105,9 @@ window.addEventListener("load", function () {
     var entries = document.getElementsByClassName("entry");
     var i, ncols;
 
+    container.style.position = "relative";
     absolutePosition(entries);
+
     ncols = numOfCols(entries[0], document.body.offsetWidth);
     dynamicPositioning(container, entries, ncols);
 
