@@ -24,45 +24,57 @@ function absolutePosition(es) {
     }
 }
 
-function leftMostMin(xs) {
-    var tmp = [xs[0], 0];
-    var i;
-
-    for (i = 1; i < xs.length; i++) {
-        if (xs[i] < tmp[0]) {
-            tmp = [xs[i], i];
-        }
-    }
-    return tmp;
-}
-
 function numOfCols(e, containerWidth) {
     return Math.floor(containerWidth / horizontalSpan(e));
+}
+
+function topValues(n) {
+    var tv = [];
+    tv.length = n;
+
+    return {
+        fill: function (x) {
+            var i;
+            for (i = 0; i < tv.length; i++) {
+                tv[i] = 0
+            }
+        },
+        increment: function (i, x) {
+            tv[i] += x;
+        },
+        leftMostMin: function () {
+            var min = [tv[0], 0];
+            var i;
+
+            for (i = 1; i < tv.length; i++) {
+                if (tv[i] < min[0]) {
+                    min = [tv[i], i];
+                }
+            }
+            return min;
+        }
+    };
 }
 
 // position entries es in n columns, in the given container
 function dynamicPositioning(container, es, n) {
     console.log("dynamicPositioning ", n, " columns");
     var i, e;
-    var tops = [];
+    var tops = topValues(n);
     var hspan = horizontalSpan(es[0]);
     var top, idx, pair;
 
     container.style.width = px(hspan * n);
-
-    tops.length = n;
-    for (i = 0; i < tops.length; i++) {
-        tops[i] = 0;
-    }
+    tops.fill(0);
 
     for (i = 0; i < es.length; i++) {
         e = es[i];
-        pair = leftMostMin(tops);
+        pair = tops.leftMostMin();
         top = pair[0];
         idx = pair[1];
         e.style.top = px(top);
         e.style.left = px(hspan * idx);
-        tops[idx] += verticalSpan(e);
+        tops.increment(idx, verticalSpan(e));
     }
 }
 
