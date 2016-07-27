@@ -7,7 +7,11 @@
   (:gen-class))
 
 (def samples
-  [{:title "Tiger语言的编译器前端"
+  [{:title "法律文本富网页化"
+    :link "https://github.com/chuan6/labor-contract-law"
+    :content "将纯文本的法律条文自动转化为易阅览、跳转的网页文档。目前针对劳动合同法改善文档生成程序。已有的功能包括标记章、节、条、款、项，以及文本内跳转起始点标识。使用Clojure语言。"
+    :more-links {"labor-contract-law" "页面展示"}}
+   {:title "Tiger语言的编译器前端"
     :link "https://github.com/chuan6/tiger-compiler"
     :content "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"}
    {:title "把玩浏览历史的Chrome插件：webXi"
