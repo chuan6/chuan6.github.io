@@ -9,7 +9,7 @@
 (def samples
   [{:title "法律文本富网页化"
     :link "https://github.com/chuan6/labor-contract-law"
-    :content "将纯文本的法律条文自动转化为易阅览、跳转的网页文档。目前针对劳动合同法改善文档生成程序。已有的功能包括标记章、节、条、款、项，以及文本内跳转起始点标识。使用Clojure语言。"
+    :content "将纯文本的法律条文自动转化为易阅览、跳转的网页文档。目前针对劳动合同法改善文档生成程序。已有的功能包括标记章、节、条、款、项，以及文本内精细跳转。使用Clojure语言。"
     :more-links {"labor-contract-law" "页面展示"}}
    {:title "Tiger语言的编译器前端"
     :link "https://github.com/chuan6/tiger-compiler"
