@@ -101,7 +101,7 @@ function entryTitleOnScroll(e) {
     var elmtY = elmtYOffset(title);
     var shouldBeFixed =
         pageY > elmtY &&
-        pageY < elmtY + e.offsetHeight - title.offsetHeight;
+        pageY < elmtY + e.offsetHeight;
     var isFixed = !!fixed.parentNode;
 
     if (isFixed !== shouldBeFixed) {
