@@ -117,8 +117,9 @@
                [:div {:class "title"}
                 [:a {:href link}
                  (tag-english-content title)]]
-               [:div
-                [:p (tag-english-content content)]]
+               (when content
+                 [:div
+                  [:p (tag-english-content content)]])
                (when-let [links more-links]
                  [:ul
                   (for [[ref txt] links]
