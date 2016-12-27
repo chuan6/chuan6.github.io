@@ -7,7 +7,9 @@
   (:gen-class))
 
 (def samples
-  [{:title "法律文本富网页化"
+  [{:title "《网页打印 ：在文本左右放置内容编码》"
+    :link "https://zhuanlan.zhihu.com/p/24398027"}
+   {:title "法律文本富网页化"
     :link "https://github.com/chuan6/structured-law-document"
     :content "将纯文本的法律条文自动转化为易阅览、跳转、分享的网页文档。已有的功能包括标记编、章、节、条、款、项、目，实现文本内精细跳转，以及方便的片段分享。并加入了完善的文档打印排版功能，生成网页可以轻松打印成册。使用Clojure语言以及前端相关的技术。"
     :more-links {"structured-law-document" "页面展示"}}
