@@ -7,21 +7,27 @@
   (:gen-class))
 
 (def samples
-  [{:title "《网页打印 ：在文本左右放置内容编码》"
+  [{:title "网页打印 ：在文本左右放置内容编码"
     :link "https://zhuanlan.zhihu.com/p/24398027"}
    {:title "法律文本富网页化"
     :link "https://github.com/chuan6/structured-law-document"
-    :content "将纯文本的法律条文自动转化为易阅览、跳转、分享的网页文档。已有的功能包括标记编、章、节、条、款、项、目，实现文本内精细跳转，以及方便的片段分享。并加入了完善的文档打印排版功能，生成网页可以轻松打印成册。使用Clojure语言以及前端相关的技术。"
+    :content ["将纯文本的法律条文自动转化为易阅览、跳转、分享的网页文档。"
+              "已有的功能包括标记编、章、节、条、款、项、目，实现文本内精细跳转，以及方便的片段分享。并加入了完善的文档打印排版功能，生成网页可以轻松打印成册。"
+              "使用Clojure语言以及前端相关的技术。"]
     :more-links {"structured-law-document" "页面展示"}}
    {:title "Tiger语言的编译器前端"
     :link "https://github.com/chuan6/tiger-compiler"
-    :content "实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"}
+    :content ["实现了Tiger语言的编译器前端，包括词法器、simple LR语法生成器、抽象语法树转化、类型系统，以及相关用于上下文无关文法的一些函数。"
+              "主要特点有，simple LR语法生成器能为任何属于simple LR的语法自动生成语法器（类似于yacc的作用）；完整实现了Tiger语言特性，包括递归函数声明、递归类型声明等；使用Clojure语言。"]}
    {:title "把玩浏览历史的Chrome插件：webXi"
     :link "https://github.com/chuan6/webXi"
     :content "制作了一个Chrome浏览器插件，webXi。可以帮助Chrome重度用户通过动态的操作流程，把玩、分析自己的网页浏览历史。"}
    {:title "M/M/c/K队列系统模拟库"
     :link "https://github.com/chuan6/mmck-simul-lib"
-    :content "设计并实现了M/M/c/K队列系统模拟器函数库。主要特点有，可以灵活模拟非简单FIFO的队列、非简单先空闲先上岗的服务单元，以及处理任务速率不同的服务单元；用户只需提供满足简单接口的队列结构或服务单元结构，便能利用库里的模拟算法；分别用Go语言和C++11语言实现了两个符合各自语言特点的版本；Go语言版本通过pprof进行性能调优，将随机数生成之外的计算成本降到极低，测试中达到与C++11版本通过gcc -o2优化编译所得到的性能。"}
+    :content ["设计并实现了M/M/c/K队列系统模拟器函数库。主要特点有，"
+              "可以灵活模拟非简单FIFO的队列、非简单先空闲先上岗的服务单元，以及处理任务速率不同的服务单元；"
+              "用户只需提供满足简单接口的队列结构或服务单元结构，便能利用库里的模拟算法；"
+              "分别用Go语言和C++11语言实现了两个符合各自语言特点的版本；Go语言版本通过pprof进行性能调优，将随机数生成之外的计算成本降到极低，测试中达到与C++11版本通过gcc -o2优化编译所得到的性能。"]}
    {:title "LC-3的单文件汇编器"
     :link "https://github.com/chuan6/LC-3-assembler"
     :content "实现了LC-3汇编语言的单文件汇编器。主要特点有，为了适用于教育环境，提供充分的报错信息；使用Clojure语言。"}
@@ -34,7 +40,8 @@
     :more-links {"wusetu-bbs-regpage" "页面展示"}}
    {:title "中农大五色土BBS主页重构"
     :link "https://github.com/chuan6/wusetu-bbs-mainpage"
-    :content "历时约四个月，重构的内容包括从技术（HTML&CSS+JS），到排版布局，再到页面模块增删。期间，获得来自热心网友，Carol、 爱琴海蓝、老猫、水晶男孩等，以及BBS管理员，的持续反馈、帮助和建议。重构的技术需求来自由当时逐渐流行的Firefox和Chrome浏览器推进的标准Web技术逐步代替IE6的现实。未上线。"
+    :content ["历时约四个月，重构的内容包括从技术（HTML&CSS+JS），到排版布局，再到页面模块增删。期间，获得来自热心网友，Carol、 爱琴海蓝、老猫、水晶男孩等，以及BBS管理员，的持续反馈、帮助和建议。"
+              "重构的技术需求来自由当时逐渐流行的Firefox和Chrome浏览器推进的标准Web技术逐步代替IE6的现实。未上线。"]
     :more-links {"wusetu-bbs-mainpage" "页面展示"}}])
 
 (defn- wrap-span [options s]
@@ -118,8 +125,10 @@
                 [:a {:href link}
                  (tag-english-content title)]]
                (when content
-                 [:div
-                  [:p (tag-english-content content)]])
+                 (let [ps (if (vector? content) content [content])
+                       p (fn [paragraph] [:p (tag-english-content paragraph)])]
+                   [:div
+                    (map p ps)]))
                (when-let [links more-links]
                  [:ul
                   (for [[ref txt] links]

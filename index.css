@@ -6,6 +6,8 @@ body {
   min-width: 300px;
   margin: 0 auto;
   background-color: white;
+  font-size: 92%;
+  font-family: "Noto Sans CJK SC", sans-serif, "HeiTi SC", "Droid Sans";
 }
 
 #entries-container {
@@ -21,7 +23,7 @@ body {
 .entry {
   padding: 0.5em 1.62em 0.5em 1em;
   margin: 0.5em 0.31em 0.5em 0.31em;
-  border-left: 2px solid red;
+  border-left: 1px solid red;
   line-height: 1.62;
 }
 
