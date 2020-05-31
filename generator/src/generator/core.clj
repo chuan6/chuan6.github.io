@@ -8,6 +8,7 @@
 
 (def samples
   [{:title "网页打印 ：在文本左右放置内容编码"
+    :anchor "web-page-print-content"
     :link "https://zhuanlan.zhihu.com/p/24398027"}
    {:title "法律文本富网页化"
     :link "https://github.com/chuan6/structured-law-document"
@@ -118,12 +119,13 @@
            [:script {:src "main.js"}]]
           [:body
            [:div {:id "entries-container"}
-            (for [{:keys [title link content more-links]} samples]
-              [:div {:id (id-by-link link)
+            (for [{:keys [title anchor link content more-links]} samples]
+              [:div {:id (or anchor (id-by-link link))
                      :class "entry"}
                [:div {:class "title"}
-                [:a {:href link}
-                 (tag-english-content title)]]
+                (if (nil? link)
+                  [:span (tag-english-content title)]
+                  [:a {:href link} (tag-english-content title)])]
                (when content
                  (let [ps (if (vector? content) content [content])
                        p (fn [paragraph] [:p (tag-english-content paragraph)])]
