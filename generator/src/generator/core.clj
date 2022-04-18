@@ -7,7 +7,10 @@
   (:gen-class))
 
 (def samples
-  [{:title "App Support 「Buzz 声声」"
+  [{:title "Privacy Policy 「Buzz 声声」"
+    :anchor "ios-app-buzz-privacy"
+    :content ["The app does NOT collect any data off device."]}
+   {:title "App Support 「Buzz 声声」"
     :anchor "ios-app-buzz"
     :content ["Hi,"
               "If you have any questions about the iOS app, please email at:"
