@@ -7,7 +7,14 @@
   (:gen-class))
 
 (def samples
-  [{:title "歌词翻译：Daughters - John Mayer"
+  [{:title "App Support 「Buzz 声声」"
+    :anchor "ios-app-buzz"
+    :content ["Hi,"
+              "If you have any questions about the iOS app, please email at:"
+              "chuan6 DOT dev AT qq DOT com"
+              "Thank you!"
+              "Best regards"]}
+   {:title "歌词翻译：Daughters - John Mayer"
     :anchor "daughters-john-mayer-transcript"
     :content ["I know a girl"
               "我认识的一个女孩"
