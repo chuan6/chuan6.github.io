@@ -91,25 +91,40 @@ function elmtYOffset(e) {
 
 function entryTitleOnScroll(e) {
   var title = e.querySelector(".title");
-  var fixed = title.cloneNode(true);
-
-  fixed.style.position = "fixed";
-  fixed.style.top = "0";
+  var clone = title.cloneNode(true);
+  var computedStyle = window.getComputedStyle(e)
+  var paddingBottom = computedStyle.getPropertyValue("padding-bottom")
+  var padding = parseFloat(computedStyle.getPropertyValue("padding-top")) + parseFloat(paddingBottom)
 
   return function () {
     var pageY = window.pageYOffset;
     var elmtY = elmtYOffset(title);
-    var shouldBeFixed =
-        pageY > elmtY &&
-        pageY < elmtY + e.offsetHeight;
-    var isFixed = !!fixed.parentNode;
 
-    if (isFixed !== shouldBeFixed) {
-      if (shouldBeFixed) {//fixed is undefined
-        fixed = e.insertBefore(fixed, title);
-      } else {
-        e.removeChild(fixed);
+    var pos1 = elmtY;
+    var pos2 = elmtY + e.offsetHeight - title.offsetHeight - padding;
+    var pos3 = elmtY + e.offsetHeight - padding;
+    var isCloneAttached = !!clone.parentNode;
+
+    if (pageY >= pos1 && pageY < pos2) {
+      if (!isCloneAttached) {
+        clone = e.insertBefore(clone, title);
       }
+      if (clone.style.position != "fixed") {
+        clone.style.position = "fixed";
+        clone.style.top = "0";
+        clone.style.bottom = "";
+      }
+    } else if (pageY >= pos2 && pageY < pos3) {
+      if (!isCloneAttached) {
+        clone = e.insertBefore(clone, title);
+      }
+      if (clone.style.position != "absolute") {
+        clone.style.position = "absolute";
+        clone.style.top = "";
+        clone.style.bottom = paddingBottom;
+      }
+    } else if (isCloneAttached) {
+      e.removeChild(clone);
     }
   };
 }
