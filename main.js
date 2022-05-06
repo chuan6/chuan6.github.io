@@ -129,7 +129,7 @@ function entryTitleOnScroll(e) {
   };
 }
 
-window.addEventListener("load", function () {
+window.addEventListener("DOMContentLoaded", function () {
   var container = document.getElementById("entries-container");
   var entries = document.getElementsByClassName("entry");
   var i, ncols;

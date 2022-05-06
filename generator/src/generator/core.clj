@@ -15,9 +15,10 @@
                [:a {:href "https://apps.apple.com/us/app/buzz-%E5%A3%B0%E5%A3%B0/id1619604686"
                     :target "_blank"}
                 [:img
-                 {:src "download-ios-app-alternate_2x.png"
-                  :width "320"
-                  :height "108"
+                 {:loading "lazy"
+                  :src "download-ios-app-alternate_2x.png"
+                  :width "160"
+                  :height "54"
                   :alt "download"}]]]]}
    {:title "Privacy Policy 「Buzz 声声」"
     :anchor "ios-app-buzz-privacy"
