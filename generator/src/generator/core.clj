@@ -7,7 +7,19 @@
   (:gen-class))
 
 (def samples
-  [{:title "Privacy Policy 「Buzz 声声」"
+  [{:title "iOS App 「Buzz 声声」"
+    :anchor "ios-app-buzz-intro"
+    :content ["Transparency mode, or live listen, for wired headphone users. Control the loudness of the surrounding sound by simply turning up and down the wheel."
+              "If used as a simple audio recorder, you will be able to hear the return in your wired headphones, with minimal latency, as professionals."
+              [:figure
+               [:a {:href "https://apps.apple.com/us/app/buzz-%E5%A3%B0%E5%A3%B0/id1619604686"
+                    :target "_blank"}
+                [:img
+                 {:src "download-ios-app-alternate_2x.png"
+                  :width "320"
+                  :height "108"
+                  :alt "download"}]]]]}
+   {:title "Privacy Policy 「Buzz 声声」"
     :anchor "ios-app-buzz-privacy"
     :content ["The app does NOT collect any data off device."]}
    {:title "App Support 「Buzz 声声」"
@@ -235,7 +247,9 @@
                   [:a {:href link} (tag-english-content title)])]
                (when content
                  (let [ps (if (vector? content) content [content])
-                       p (fn [paragraph] [:p (tag-english-content paragraph)])]
+                       p (fn [fragment] (if (string? fragment)
+                                           [:p (tag-english-content fragment)]
+                                           fragment))]
                    [:div
                     (map p ps)]))
                (when-let [links more-links]

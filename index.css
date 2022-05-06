@@ -10,6 +10,11 @@ body {
   font-family: "Noto Sans CJK SC", sans-serif, "HeiTi SC", "Droid Sans";
 }
 
+figure img {
+  max-width: 100%;
+  height: auto;
+}
+
 #entries-container {
   margin: 0 auto;
   background-color: inherit;
