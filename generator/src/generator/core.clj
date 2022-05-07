@@ -249,8 +249,8 @@
   [& args]
   (spit "../index.html"
         (html
-         (html5
-          [:head {:lang "zh"}
+         (html5  {:lang "zh"}
+          [:head
            [:meta {:charset "utf-8"}]
            [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
            [:title "chuan6"]
