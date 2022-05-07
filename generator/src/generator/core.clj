@@ -186,15 +186,18 @@
                (t/is (= (str "你好" hello "世界")
                         (tag-english-content "你好hello世界")))
                (t/is (= (str "你好" hello "世界" world)
-                        (tag-english-content "你好hello世界world")))]))}
+                        (tag-english-content "你好hello世界world")))
+               (t/is (= (str "你好" hello "世界")
+                        (tag-english-content "你好 hello  世界")))]))}
   [input-string]
   (letfn [(space-before-after [cs]
-            (str " " (str/join cs) " "))
+            (str " " (str/trim (str/join cs)) " "))
           (tag [cs]
             (wrap-span {:lang "en"} (space-before-after cs)))]
     (loop [cs input-string
            tv []
-           en-buf []]
+           en-buf []
+           preSpaces []]
       (if (empty? cs)
         (str/join
          (if (empty? en-buf)
@@ -204,13 +207,30 @@
               i (int c)]
           (cond (or (and (>= i (int \!)) (<= i (int \~)))
                     (and (seq en-buf) (Character/isWhitespace c)))
-                (recur (rest cs) tv (conj en-buf c))
+                (recur (rest cs)
+                       tv
+                       (conj en-buf c)
+                       ;;preceeding spaces are collapsed
+                       [])
 
                 (seq en-buf)
-                (recur cs (conj tv (tag en-buf)) [])
+                (recur cs
+                       (conj tv (tag en-buf))
+                       []
+                       preSpaces)
+
+                (Character/isWhitespace c)
+                (recur (rest cs)
+                       tv
+                       []
+                       (conj preSpaces c))
 
                 :else
-                (recur (rest cs) (conj tv c) [])))))))
+                (recur (rest cs)
+                       ;;preceeding spaces are consumed
+                       (conj tv (str/join (conj preSpaces c)))
+                       []
+                       [])))))))
 
 (defn id-by-link
   {:test
