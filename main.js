@@ -129,6 +129,28 @@ function entryTitleOnScroll(e) {
   };
 }
 
+function dynamicTitle() {
+  var separator = " · "
+  var fragments = document.title.split(separator);
+
+  var hash = window.location.hash;
+  if (hash) {
+    var entryElmt = document.querySelector(hash);
+    if (entryElmt) {
+      var titleElmt = entryElmt.querySelector(".title");
+      if (titleElmt) {
+        var title = titleElmt.textContent.trim();
+        if (title) {
+          document.title = fragments[0] + separator + title;
+          return;
+        }
+      }
+    }
+  }
+
+  document.title = fragments[0];
+}
+
 window.addEventListener("DOMContentLoaded", function () {
   var container = document.getElementById("entries-container");
   var entries = document.getElementsByClassName("entry");
@@ -151,4 +173,10 @@ window.addEventListener("DOMContentLoaded", function () {
   for (i = 0; i < entries.length; i++) {
     window.addEventListener("scroll", entryTitleOnScroll(entries[i]));
   }
+
+  dynamicTitle();
 });
+
+window.addEventListener('hashchange', function(e) {
+  dynamicTitle()
+}, false);
